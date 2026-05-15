@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SECRET_ARN="arn:aws:secretsmanager:eu-north-1:363179374584:secret:strativ-prod-n8n/app-6MOAmq"
-APP_DIR="/opt/n8n"
+APP_DIR="$(cd "$(dirname "$0")" && pwd)"
 ENV_FILE="${APP_DIR}/.env"
 
 echo "→ Fetching secrets from Secrets Manager..."
@@ -14,7 +14,6 @@ SECRET=$(aws secretsmanager get-secret-value \
 N8N_ENCRYPTION_KEY=$(echo "${SECRET}" | jq -r '.N8N_ENCRYPTION_KEY')
 DB_POSTGRESDB_PASSWORD=$(echo "${SECRET}" | jq -r '.DB_POSTGRESDB_PASSWORD')
 N8N_BASIC_AUTH_PASSWORD=$(echo "${SECRET}" | jq -r '.N8N_BASIC_AUTH_PASSWORD // empty')
-
 cat > "${ENV_FILE}" <<EOF
 N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
 DB_POSTGRESDB_PASSWORD=${DB_POSTGRESDB_PASSWORD}
