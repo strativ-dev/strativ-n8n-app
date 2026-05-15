@@ -1,0 +1,3 @@
+app.n8n.strativ.se {
+    reverse_proxy n8n:5678
+}
