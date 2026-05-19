@@ -28,4 +28,4 @@ cd "${APP_DIR}"
 docker compose pull
 docker compose up -d
 
-echo "✓ n8n is up. Visit https://app.n8n.strativ.se to complete owner setup."
+echo "✓ n8n is up. Visit https://n8n.strativ.se to complete owner setup."
